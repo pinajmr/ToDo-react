@@ -8,7 +8,7 @@ const TodoContext = React.createContext();
 
 function TodoProvider(props) {
 // Nos traemos todo el estado y las funciones de nuestra ap que queremos globales
-
+const [openModal, setOpenModal] = React.useState(false);
 //Desestructuramos los datos que retornamos de nuestro custom hook
 // y le pasamos los argumentos que necesitamos (nombre y estaod inicial)
     const {
@@ -61,6 +61,8 @@ function TodoProvider(props) {
     return (
         // Pasamos los valores de loading y error
         <TodoContext.Provider value ={{
+        openModal,
+        setOpenModal,
         loading,
         error,
         totalTodos,

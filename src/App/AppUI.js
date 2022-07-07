@@ -6,6 +6,7 @@ import { TodoSearch } from "../TodoSearch";
 import { TodoList } from "../TodoList";
 import { TodoItem } from "../TodoItem";
 import { TodoContext} from "../TodoContext";
+import { Modal} from "../Modal";
 
 
 function AppUI() {
@@ -16,21 +17,13 @@ function AppUI() {
       searchedTodos,
       completeTodo,
       deleteTodo,
+      openModal,
+      setOpenModal,
     } = React.useContext(TodoContext);
     return (
       <>
         <TodoCounter/>
         <TodoSearch/>
-
-        {/* Podemos acceder a nuestro contexto con el consumer */}
-        {/* <TodoContext.Consumer>
-        {({
-          error,
-          loading,
-          searchedTodos,
-          completeTodo,
-          deleteTodo,
-        }) => ( */}
         <TodoList>
           {/* Show message for error */}
           {error && <p>Oww There are an error!</p>}
@@ -48,9 +41,16 @@ function AppUI() {
             />
           ))}
         </TodoList>
+        {!!openModal && (
+        <Modal>
+            <p>{searchedTodos[0]?.text}</p>
+        </Modal>
+        )}
         {/* )}
         </TodoContext.Consumer> */}
-        <CreateTodoButton />
+        <CreateTodoButton 
+          setOpenModal={setOpenModal}
+        />
       </>
     );
   }

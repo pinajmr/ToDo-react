@@ -3,23 +3,16 @@ import './CreateTodoButton.css';
 
 function CreateTodoButton(props) {
 
-    const onClickButton = (msg) => {
-        alert(msg);
+    const onClickButton = () => {
+        props.setOpenModal(true);
     }
 
     return(
         <>
-        {/* ✅ */}
         <button 
             className="CreateTodoButton"
-            onClick={() => onClickButton('Here is open the modal')}>
+            onClick={onClickButton}>
             +
-        </button>
-        {/* ❌ */}
-        <button
-            className="CreateTodoButton"
-            onClick={() => onClickButton('You deleted')}>
-
         </button>
         </>
     );
