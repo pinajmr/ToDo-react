@@ -1,33 +1,36 @@
 import React from "react";
+//Importamos nuestro contexto
 import { TodoCounter } from "../TodoCounter";
 import { CreateTodoButton } from "../CreateTodoButton";
 import { TodoSearch } from "../TodoSearch";
 import { TodoList } from "../TodoList";
 import { TodoItem } from "../TodoItem";
+import { TodoContext} from "../TodoContext";
 
-// Desesctructuramos las nuevas props
-function AppUI({
-    loading,
-    error,
-    totalTodos,
-    completedTodos,
-    searchValue,
-    setSearchValue,
-    searchedTodos,
-    completeTodo,
-    deleteTodo,
-  }) {
+
+function AppUI() {
+    // Desesctructuramos las nuevas props
+    const {
+      error, 
+      loading,
+      searchedTodos,
+      completeTodo,
+      deleteTodo,
+    } = React.useContext(TodoContext);
     return (
       <>
-        <TodoCounter
-          total={totalTodos}
-          completed={completedTodos}
-        />
-        <TodoSearch
-          searchValue={searchValue}
-          setSearchValue={setSearchValue}
-        />
-  
+        <TodoCounter/>
+        <TodoSearch/>
+
+        {/* Podemos acceder a nuestro contexto con el consumer */}
+        {/* <TodoContext.Consumer>
+        {({
+          error,
+          loading,
+          searchedTodos,
+          completeTodo,
+          deleteTodo,
+        }) => ( */}
         <TodoList>
           {/* Show message for error */}
           {error && <p>Oww There are an error!</p>}
@@ -45,7 +48,8 @@ function AppUI({
             />
           ))}
         </TodoList>
-  
+        {/* )}
+        </TodoContext.Consumer> */}
         <CreateTodoButton />
       </>
     );
