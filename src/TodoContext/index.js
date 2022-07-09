@@ -8,19 +8,19 @@ const TodoContext = React.createContext();
 
 function TodoProvider(props) {
 // Nos traemos todo el estado y las funciones de nuestra ap que queremos globales
-const [openModal, setOpenModal] = React.useState(false);
-//Desestructuramos los datos que retornamos de nuestro custom hook
-// y le pasamos los argumentos que necesitamos (nombre y estaod inicial)
-    const {
-        item: todos,
-        saveItem: saveTodos,
-        loading,
-        error,
-    } = useLocalStorage('TODOS_V1',[])
+  const [openModal, setOpenModal] = React.useState(false);
+  //Desestructuramos los datos que retornamos de nuestro custom hook
+  // y le pasamos los argumentos que necesitamos (nombre y estaod inicial)
+  const {
+    item: todos,
+    saveItem: saveTodos,
+    loading,
+    error,
+  } = useLocalStorage('TODOS_V1',[])
     // Cantidad de TODOs completados
-    const completedTodos = todos.filter(todo => todo.completed).length;
+  const completedTodos = todos.filter(todo => todo.completed).length;
   // Cantidad total de TODOs
-    const totalTodos = todos.length;
+  const totalTodos = todos.length;
 
   // El estado de nuestra busqueda
   const [searchValue, setSearchValue] = React.useState('');
@@ -37,6 +37,15 @@ const [openModal, setOpenModal] = React.useState(false);
       return todoText.includes(searchText);
     });
   }
+
+  const addTodo = (text) => {
+    const newTodos = [...todos];
+    newTodos.push({
+      completed: false,
+      text
+    });
+    saveTodos(newTodos);
+  };
 
 
 
@@ -72,6 +81,7 @@ const [openModal, setOpenModal] = React.useState(false);
         searchedTodos,
         completeTodo,
         deleteTodo,
+        addTodo,
         }}
         >
         {props.children}
